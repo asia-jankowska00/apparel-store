@@ -7,6 +7,7 @@ import mongoose from 'mongoose'
 import bluebird from 'bluebird'
 import * as path from 'path'
 import sassMiddleware from 'node-sass-middleware'
+import expressLayouts from 'express-ejs-layouts'
 
 // Secrets
 import { MONGODB_URI } from './utils/secrets'
@@ -48,6 +49,8 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 // Configure view engine
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
+
+app.use(expressLayouts)
 
 // Use common 3rd-party middlewares
 app.use(compression())

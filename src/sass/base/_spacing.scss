@@ -1,0 +1,63 @@
+// Margin utilities
+
+@mixin generate($prefix, $property) {
+  // List of sizes to generate for each
+  $sizes: [0, .25, .5, 1, 1.5, 2, 3, 4, 5];
+  // Spacing to multiply the sizes by
+  $spacing: 1rem;
+  
+  // Loop through all of the sizes(we use @for rather than @each, as we want access to the index)
+  @for $i from 1 through length($sizes) {
+    // Get the size for the current index
+    $size: nth($sizes, $i);
+    
+    // Create the rule
+    .#{$prefix}-#{$i - 1} {
+      #{$property}: $spacing * $size;
+    }
+  }
+} 
+
+$rules: [
+  [m, margin],
+  [ml, margin-left],
+  [mt, margin-top],
+  [mb, margin-bottom],
+  [mr, margin-right],
+];
+
+@each $item in $rules {
+  @include generate(nth($item, 1), nth($item, 2));
+}
+
+// Padding utilities
+
+@mixin generate($prefix, $property) {
+  // List of sizes to generate for each
+  $sizes: [0, .25, .5, 1, 1.5, 2, 3, 4, 5];
+  // Spacing to multiply the sizes by
+  $spacing: 1rem;
+  
+  // Loop through all of the sizes(we use @for rather than @each, as we want access to the index)
+  @for $i from 1 through length($sizes) {
+    // Get the size for the current index
+    $size: nth($sizes, $i);
+    
+    // Create the rule
+    .#{$prefix}-#{$i - 1} {
+      #{$property}: $spacing * $size;
+    }
+  }
+} 
+
+$rules: [
+  [p, padding],
+  [pl, padding-left],
+  [pt, padding-top],
+  [pb, padding-bottom],
+  [pr, padding-right],
+];
+
+@each $item in $rules {
+  @include generate(nth($item, 1), nth($item, 2));
+}

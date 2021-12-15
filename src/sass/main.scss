@@ -1,3 +1,38 @@
-body {
-  color: palevioletred;
-}
+@charset 'UTF-8';
+
+// 1. Vendors
+@import
+  'vendors/normalize';
+
+// 2. Abstracts - Variables, functions, mixins, and placeholders
+@import
+  'abstracts/variables',
+  'abstracts/functions',
+  'abstracts/mixins';
+
+// 3. Base files
+@import
+  'base/base',
+  'base/flex',
+  'base/typography',
+  'base/utils',
+  'base/spacing';
+
+// 4. Layout-related sections
+@import
+  'layout/header',
+  'layout/footer',
+  'layout/grid';
+
+// 5. Components
+@import
+  'components/buttons',
+  'components/media-queries';
+
+// 6. Page-specific styles
+@import
+  'pages/home';
+
+// 7. Themes
+@import
+  'themes/default';
