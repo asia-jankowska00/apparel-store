@@ -1,0 +1,70 @@
+<%- contentFor('body') %>
+<main class="container">
+  <div class="pt-6 pb-6">
+    <%- include('../partials/flash')%>
+    <form action="/register" method="POST">
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="firstName">First name</label>
+          <input
+            class="width-full"
+            type="text"
+            name="firstName"
+            id="firstName"
+            placeholder="First name"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="lastName">Last name</label>
+          <input
+            class="width-full"
+            type="text"
+            name="lastName"
+            id="lastName"
+            placeholder="Last name"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="email">Email</label>
+          <input
+            class="width-full"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="username">Username</label>
+          <input
+            class="width-full"
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Username"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="password">Password</label>
+          <input
+            class="width-full"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+          />
+        </div>
+      </div>
+      <input class="btn btn-primary" type="submit" value="Submit" />
+    </form>
+  </div>
+</main>

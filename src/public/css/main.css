@@ -827,9 +827,21 @@ q > q {
   text-align: justify;
 }
 
+.text-error {
+  color: #b35351;
+}
+
+.text-success {
+  color: #89b683;
+}
+
 .list-reset {
   list-style: none;
   padding-left: 0;
+}
+
+.width-full {
+  width: 100%;
 }
 
 .m-0 {

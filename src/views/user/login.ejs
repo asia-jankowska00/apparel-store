@@ -1,0 +1,33 @@
+<%- contentFor('body') %>
+<main class="container">
+  <div class="pt-6 pb-6">
+    <%- include('../partials/flash')%>
+    <form action="/login" method="POST">
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="username">Username</label>
+          <input
+            class="width-full"
+            type="username"
+            name="username"
+            id="username"
+            placeholder="Username"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="password">Password</label>
+          <input
+            class="width-full"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+          />
+        </div>
+      </div>
+      <input class="btn btn-primary" type="submit" value="Submit" />
+    </form>
+  </div>
+</main>

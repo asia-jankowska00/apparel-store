@@ -84,3 +84,6 @@ q {
 .text-center       { text-align: center }
 .text-right-align  { text-align: right }
 .text-justify      { text-align: justify }
+
+.text-error  { color: $color-danger }
+.text-success  { color: $color-success }
