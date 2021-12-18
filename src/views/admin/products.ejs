@@ -1,0 +1,38 @@
+<%- contentFor('body') %>
+<main class="container">
+  <div class="pt-6 pb-6">
+    <h2>All products</h2>
+    <a class="btn btn-primary" href="/admin/products/new">Add new product</a>
+    <% for (let product of products){%>
+
+    <hr />
+    <div class="row">
+      <div class="col col-6">
+        <div class="row">
+          <%if(product.image) {%>
+          <img alt="" src="/files/<%=product.image%>" />
+          <% }else {%> <% } %>
+
+          <h5><%= product.name %></h5>
+
+          <p><%= product.description %></p>
+          <p><%= product.price %></p>
+        </div>
+      </div>
+
+      <div class="col col-6 flex justify-end">
+        <a class="btn btn-primary mr-4" href="/<%=product._id%>">View</a>
+        <a class="btn btn-primary mr-4" href="/admin/products/<%=product._id%>"
+          >Edit</a
+        >
+        <form action="/admin/products/<%=product._id%>?_method=DELETE" method="POST">
+        <button type="submit" class="btn btn-warning" href="/admin/products/<%=product._id%>"
+          >Delete</button
+        >
+      </div>
+    </div>
+
+    <% }%>
+    <hr />
+  </div>
+</main>

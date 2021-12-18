@@ -1,0 +1,75 @@
+<%- contentFor('body') %>
+<main class="container">
+  <div class="pt-6 pb-6">
+    <%- include('../partials/flash')%>
+    <form action="/admin/products/<%=product._id%>?_method=PUT" method="POST">
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="name">Name</label>
+          <input
+            class="width-full"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            value="<%=product.name %>"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="description">Description</label>
+          <input
+            class="width-full"
+            type="text"
+            name="description"
+            id="description"
+            placeholder="Description"
+            value="<%=product.description %>"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="productCollection">Collection</label>
+          <select class="width-full" id="productCollection"   value="<%=product.productCollection %>">
+            <option value="Women">Women</option>
+            <option value="Men">Men</option>
+            <option value="Kids">Kids</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="category">Category</label>
+          <select class="width-full" id="category"   value="<%=product.category %>">
+            <option value="T-shirts">T-shirts</option>
+            <option value="Sweaters">Sweaters</option>
+            <option value="Jackets">Jackets</option>
+            <option value="Pants">Pants</option>
+            <option value="Shoes">Shoes</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-6 pb-4">
+          <label for="price">Price</label>
+          <input
+            class="width-full"
+            type="number"
+            name="price"
+            id="price"
+            placeholder="Price"
+            value="<%=product.price %>"
+          />
+        </div>
+      </div>
+
+      <input class="btn btn-primary" type="submit" value="Submit" />
+    </form>
+  </div>
+</main>

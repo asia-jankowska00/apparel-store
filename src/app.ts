@@ -11,7 +11,7 @@ import expressLayouts from 'express-ejs-layouts'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import passport from 'passport'
-import mongoSanitize from 'express-mongo-sanitize'
+// import mongoSanitize from 'express-mongo-sanitize'
 import methodOverride from 'method-override'
 import flash from 'express-flash'
 
@@ -20,6 +20,9 @@ import { MONGODB_URI } from './utils/secrets'
 
 // Routers
 import userRouter from './routers/user'
+import adminRouter from './routers/admin'
+import productRouter from './routers/product'
+
 import User from './models/User'
 
 const app = express()
@@ -41,11 +44,11 @@ mongoose
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-app.use(
-  mongoSanitize({
-    replaceWith: '_'
-  })
-)
+// app.use(
+//   mongoSanitize({
+//     replaceWith: '_'
+//   })
+// )
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
 
@@ -119,11 +122,17 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/', (req, res) => {
-  res.render('home')
-})
+// app.get('/', (req, res) => {
+//   res.render('home')
+// })
 
-// User user router
+// User router
 app.use('/', userRouter)
+
+// Product router
+app.use('/', productRouter)
+
+// Admin  router
+app.use('/admin', adminRouter)
 
 export default app

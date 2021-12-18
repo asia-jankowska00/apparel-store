@@ -20,6 +20,7 @@ router.get('/login', renderLogin)
 router.post(
   '/login',
   passport.authenticate('local', {
+    session: true,
     failureFlash: true,
     failureRedirect: '/login'
   }),

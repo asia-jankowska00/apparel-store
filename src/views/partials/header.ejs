@@ -11,7 +11,12 @@
       <% if(!currentUser) {%>
       <li class="col col-4 text-center"><a href="/login">Log in</a></li>
       <li class="col col-4 text-center"><a href="/register">Register</a></li>
-      <% } else {%>
+      <% } else {%> <% if (currentUser.isAdmin) { %>
+
+      <li class="col col-4 text-center">
+        <a href="/admin/products">Admin panel</a>
+      </li>
+      <% } %>
       <li class="col col-4 text-center"><a href="/logout">Logout</a></li>
       <% } %>
     </ul>
