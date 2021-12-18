@@ -11,12 +11,17 @@ export const isAdmin = async (
   res: Response,
   next: NextFunction
 ) => {
-  const currentUser = await User.findById(req.user._id).exec()
-  if (currentUser.isAdmin) {
-    req.user.isAdmin = true
-    next()
-  } else
-    next(
-      new ForbiddenError(`You don't have the rights to access this resource`)
-    )
+  try {
+    const currentUser = await User.findById(req.user._id).exec()
+    if (currentUser.isAdmin) {
+      req.user.isAdmin = true
+      next()
+    } else {
+      next(
+        new ForbiddenError(`You don't have the rights to access this resource`)
+      )
+    }
+  } catch (error) {
+    res.redirect('/')
+  }
 }

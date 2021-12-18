@@ -41,8 +41,7 @@ export const createProduct = async (
       categories,
       variants,
       sizes,
-      price,
-      image
+      price
     }: ProductDocument = req.body
 
     const product: ProductDocument = new Product({
@@ -53,7 +52,7 @@ export const createProduct = async (
       variants,
       sizes,
       price,
-      image
+      image: req.file?.filename
     })
 
     await ProductService.create(product)
@@ -61,6 +60,7 @@ export const createProduct = async (
     req.flash('success', 'Successfully made a new product!')
     res.redirect(`/admin/products`)
   } catch (error) {
+    console.log(error)
     handleError(error, next)
   }
 }
@@ -92,7 +92,10 @@ export const updateProduct = async (
 ) => {
   try {
     const update = req.body
+    req.body.image = req.file?.filename
     const productId = req.params.productId
+    console.log(productId)
+    console.log(req.body.image)
     await ProductService.update(productId, update)
     return res.redirect('/admin/products')
   } catch (error) {

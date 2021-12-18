@@ -22,6 +22,7 @@ import { MONGODB_URI } from './utils/secrets'
 import userRouter from './routers/user'
 import adminRouter from './routers/admin'
 import productRouter from './routers/product'
+import fileRouter from './routers/file'
 
 import User from './models/User'
 
@@ -29,11 +30,20 @@ const app = express()
 const mongoUrl = MONGODB_URI
 
 mongoose.Promise = bluebird
+
 mongoose
   .connect(mongoUrl)
   .then(() => {
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
     console.log('MongoDB connected')
+
+    const gridFSBucket = new mongoose.mongo.GridFSBucket(
+      mongoose.connection.db,
+      {
+        bucketName: 'uploads'
+      }
+    )
+    app.locals.gfs = gridFSBucket
   })
   .catch((err: Error) => {
     console.log(
@@ -41,6 +51,8 @@ mongoose
     )
     process.exit(1)
   })
+
+app.use('/public', express.static(path.join(__dirname, 'public')))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
@@ -60,25 +72,19 @@ store.on('error', function (e) {
   console.log('Session store error', e)
 })
 
-const sessionConfig = {
-  store,
-  name: 'session',
-  secret,
-  resave: false,
-  saveUninitialized: true
-}
-
-app.use(session(sessionConfig))
-
-app.use(passport.initialize())
-app.use(passport.session())
-
-passport.use(User.createStrategy())
-passport.serializeUser(User.serializeUser())
-passport.deserializeUser(User.deserializeUser())
-
 // Express configuration
 app.set('port', process.env.PORT || 3000)
+
+// Use common 3rd-party middlewares
+app.use(compression())
+// app.use(cookieParser(secret))s
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(lusca.xframe('SAMEORIGIN'))
+app.use(lusca.xssProtection(true))
+
+// Cross origin enabled
+app.use(cors())
 
 // Configure SASS
 app.use(
@@ -91,7 +97,6 @@ app.use(
     prefix: '/prefix' // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
   })
 )
-app.use('/public', express.static(path.join(__dirname, 'public')))
 
 // Configure view engine
 app.set('view engine', 'ejs')
@@ -100,25 +105,27 @@ app.use(expressLayouts)
 
 app.use(flash())
 
+const sessionConfig = {
+  store,
+  name: 'session',
+  secret
+  // resave: false,
+  // saveUninitialized: true
+}
+
+app.use(session(sessionConfig))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.use(User.createStrategy())
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
 app.use((req, res, next) => {
   res.locals.currentUser = req.user
   res.locals.success = req.flash('success')
   res.locals.error = req.flash('error')
-  next()
-})
-
-// Use common 3rd-party middlewares
-app.use(compression())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(lusca.xframe('SAMEORIGIN'))
-app.use(lusca.xssProtection(true))
-
-// Cross origin enabled
-app.use(cors())
-
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user
   next()
 })
 
@@ -134,5 +141,8 @@ app.use('/', productRouter)
 
 // Admin  router
 app.use('/admin', adminRouter)
+
+// User router
+app.use('/files', fileRouter)
 
 export default app

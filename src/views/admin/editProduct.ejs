@@ -2,7 +2,11 @@
 <main class="container">
   <div class="pt-6 pb-6">
     <%- include('../partials/flash')%>
-    <form action="/admin/products/<%=product._id%>?_method=PUT" method="POST">
+    <form
+      action="/admin/products/<%=product._id%>?_method=PUT"
+      method="POST"
+      enctype="multipart/form-data"
+    >
       <div class="row">
         <div class="col col-6 pb-4">
           <label for="name">Name</label>
@@ -34,7 +38,11 @@
       <div class="row">
         <div class="col col-6 pb-4">
           <label for="productCollection">Collection</label>
-          <select class="width-full" id="productCollection"   value="<%=product.productCollection %>">
+          <select
+            class="width-full"
+            id="productCollection"
+            value="<%=product.productCollection %>"
+          >
             <option value="Women">Women</option>
             <option value="Men">Men</option>
             <option value="Kids">Kids</option>
@@ -45,7 +53,11 @@
       <div class="row">
         <div class="col col-6 pb-4">
           <label for="category">Category</label>
-          <select class="width-full" id="category"   value="<%=product.category %>">
+          <select
+            class="width-full"
+            id="category"
+            value="<%=product.category %>"
+          >
             <option value="T-shirts">T-shirts</option>
             <option value="Sweaters">Sweaters</option>
             <option value="Jackets">Jackets</option>
@@ -68,6 +80,8 @@
           />
         </div>
       </div>
+
+      <input type="file" name="image" />
 
       <input class="btn btn-primary" type="submit" value="Submit" />
     </form>
