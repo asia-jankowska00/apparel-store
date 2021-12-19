@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose'
 
-export type ProductCollection = 'Man' | 'Woman' | 'Kids'
+export type ProductCollection = 'Men' | 'Women' | 'Kids'
 
 export type ProductCategories =
   | 'T-shirts'

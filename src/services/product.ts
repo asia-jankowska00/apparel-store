@@ -16,18 +16,21 @@ function findById(productId: string): Promise<ProductDocument> {
 }
 
 function findAll(query: any): Promise<ProductDocument[]> {
-  return Product.find({}).exec()
-  // const findObject: any = {
-  //   name: new RegExp(query.name, 'i'),
-  //   // Should be a dropdown categories in the UI
-  //   // This $all can catch all of the categories insde query.category array
-  //   variants: new RegExp(query.variant, 'i')
-  // }
-  // if (query.category) findObject.categories = { $all: query.category }
-  // return Product.find(findObject)
-  //   .sort({ name: 1, price: -1 })
-  //   .limit(parseInt(query.limit))
-  //   .exec() // Return a Promise
+  // return Product.find({}).exec()
+  const findObject: any = {
+    // name: new RegExp(query.name, 'i'),
+    // Should be a dropdown categories in the UI
+    // This $all can catch all of the categories insde query.category array
+    // variants: new RegExp(query.variant, 'i')
+  }
+  if (query.productCollection)
+    findObject.productCollection = { $all: query.productCollection }
+  return (
+    Product.find(findObject)
+      .sort({ name: 1, price: -1 })
+      // .limit(parseInt(query.limit))
+      .exec()
+  ) // Return a Promise
 }
 
 function update(
