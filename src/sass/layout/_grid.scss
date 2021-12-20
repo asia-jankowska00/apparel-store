@@ -56,7 +56,7 @@ Markup:
     width: $container-width-larger-than-phablet;
   }
   .col {
-    margin-left: $column-margin;
+    // margin-left: $column-margin;
 
     &:first-child {
       margin-left: 0;

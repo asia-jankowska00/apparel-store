@@ -15,7 +15,11 @@
           <h5><%= item.product.name %></h5>
 
           <p><%= item.product.description %></p>
-          <p><%= item.product.price %></p>
+
+          <p class="text-bold">
+            <%= new Intl.NumberFormat('de-DE', { style: 'currency', currency:
+            'EUR' }).format(item.product.price) %>
+          </p>
 
           <p>Quantity: <%= item.quantity %></p>
 
