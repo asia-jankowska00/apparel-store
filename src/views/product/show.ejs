@@ -12,6 +12,12 @@
         <p><%= product.description %></p>
 
         <p><%= product.price %></p>
+
+        <form action="/cart/<%= product._id %>" method="POST">
+          <input type="hidden" name="isIncreased" value="true" />
+          <input class="btn btn-primary" type="submit" value="Add to cart" />
+        </form>
+
       </div>
     </div>
   </div>

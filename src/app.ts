@@ -23,6 +23,7 @@ import userRouter from './routers/user'
 import adminRouter from './routers/admin'
 import productRouter from './routers/product'
 import fileRouter from './routers/file'
+import cartRouter from './routers/cart'
 
 import User from './models/User'
 
@@ -32,7 +33,7 @@ const mongoUrl = MONGODB_URI
 mongoose.Promise = bluebird
 
 mongoose
-  .connect(mongoUrl)
+  .connect(mongoUrl, { useUnifiedTopology: true })
   .then(() => {
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
     console.log('MongoDB connected')
@@ -108,9 +109,9 @@ app.use(flash())
 const sessionConfig = {
   store,
   name: 'session',
-  secret
-  // resave: false,
-  // saveUninitialized: true
+  secret,
+  resave: false,
+  saveUninitialized: true
 }
 
 app.use(session(sessionConfig))
@@ -135,6 +136,9 @@ app.use((req, res, next) => {
 
 // User router
 app.use('/', userRouter)
+
+// Cart router
+app.use('/cart', cartRouter)
 
 // Product router
 app.use('/', productRouter)

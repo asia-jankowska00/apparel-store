@@ -1,0 +1,57 @@
+<%- contentFor('body') %>
+<main class="container">
+  <div class="pt-6 pb-6">
+    <h2>Cart</h2>
+    <% for (let item of cart){%> <% if (item.product) { %>
+
+    <hr />
+    <div class="row">
+      <div class="col col-6">
+        <div class="row">
+          <%if(item.product.image) {%>
+          <img alt="" src="/files/<%=item.product.image%>" />
+          <% }else {%> <% } %>
+
+          <h5><%= item.product.name %></h5>
+
+          <p><%= item.product.description %></p>
+          <p><%= item.product.price %></p>
+
+          <p>Quantity: <%= item.quantity %></p>
+
+          <div class="flex">
+            <form
+              action="/cart/<%= item.product._id %>"
+              method="POST"
+              class="mr-4"
+            >
+              <input type="hidden" name="isIncreased" value="true" />
+              <input class="btn btn-primary" type="submit" value="+" />
+            </form>
+
+            <form action="/cart/<%= item.product._id %>" method="POST">
+              <input type="hidden" name="isIncreased" />
+              <input class="btn btn-primary" type="submit" value="-" />
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col col-6 flex justify-end">
+        <a class="btn btn-primary mr-4" href="/<%=item.product._id%>">View</a>
+
+        <form action="/cart/<%=item.product._id%>?_method=DELETE" method="POST">
+          <button
+            type="submit"
+            class="btn btn-danger"
+            href="/cart/<%=item.product._id%>"
+          >
+            Remove
+          </button>
+        </form>
+      </div>
+    </div>
+    <% } %> <% }%>
+    <hr />
+  </div>
+</main>

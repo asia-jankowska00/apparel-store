@@ -25,10 +25,18 @@
         <a class="btn btn-primary mr-4" href="/admin/products/<%=product._id%>"
           >Edit</a
         >
-        <form action="/admin/products/<%=product._id%>?_method=DELETE" method="POST">
-        <button type="submit" class="btn btn-warning" href="/admin/products/<%=product._id%>"
-          >Delete</button
+        <form
+          action="/admin/products/<%=product._id%>?_method=DELETE"
+          method="POST"
         >
+          <button
+            type="submit"
+            class="btn btn-danger"
+            href="/admin/products/<%=product._id%>"
+          >
+            Delete
+          </button>
+        </form>
       </div>
     </div>
 
